@@ -1,4 +1,5 @@
 use std::time::{SystemTime};
+use rand::Rng;
 // use std::io;
 
 fn main() {
@@ -10,6 +11,9 @@ fn main() {
         Ok(n) => println!("1970-01-01 00:00:00 UTC was {} seconds ago", n.as_secs()),
         Err(_) => panic!("Time is broken"),
     }
+
+    let session_random_num = rand::thread_rng().gen_range(100000..1000000);
+    println!("Here is a random number, {}", session_random_num);
 
     const WELCOME: &str = r#"       
     welcome to...
@@ -35,6 +39,76 @@ fn main() {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // graveyard below %%%%%%%%%%%%%%%%%%%%%%%%%%
     /* 
+
+
+
+
+// section 5.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let rect1 = Rectangle {
+        width: 30, 
+        height: 50, 
+    };
+    println!("Area of given rect is {}", 
+                area(&rect1));
+
+struct Rectangle {
+    width: u32, 
+    height: u32, 
+}
+
+fn area(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
+}
+
+// section 5.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let mut user1 = User {
+        email: String::from("me@email.gov"), 
+        username: String::from("howdy"), 
+        active: true, 
+        sign_in_count: 1, 
+    };
+    println!("user1 email is {}", user1.email);
+    user1.email = String::from("you@email.gov");
+    println!("email updated to {}", user1.email);
+
+    let user2 = build_user(String::from("u2@me.org"), 
+                            String::from("Iluvyou"));
+    println!("user number 2 email is {}", user2.email);
+
+    let user3 = User {
+        email: String::from("mr3@user.com"), 
+        ..user1
+    };
+    println!("user number 3 email is {}", user3.email);
+    //  println!("user number 1 email is {}", user1.username); based on this code, user1's username is overwritten when user 3 was created
+    println!("user number 2 uname is {}", user2.username);
+
+    let black = Color(0, 0, 0);
+    let origin = Pointxy(0, 0); 
+    println!("color black second digit is {}", black.1);
+    println!("point origin x is {}", origin.0);
+
+struct User {
+    active: bool, 
+    username: String,
+    email: String,
+    sign_in_count: u64,  
+}
+
+fn build_user(email: String, username: String) -> User {
+    User {
+        email, 
+        username, 
+        active: true, 
+        sign_in_count: 1, 
+    }
+}
+
+struct Color(i32, i32, i32);
+struct Pointxy(i32, i32);
+
 
 // section 4.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
