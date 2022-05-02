@@ -27,11 +27,22 @@ fn main() {
     // scratchwork goes here ...............
 
 
+
 } // end of main function 
 
 // scratchwork goes here ...............
 
 
+
+
+
+// other play work .............................
+/*
+// experimenting building binom model bayes
+fn binom_model(arg_y: u32, arg_pie: f32, arg_n: u32) {
+
+}
+*/
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,7 +50,42 @@ fn main() {
 // graveyard below %%%%%%%%%%%%%%%%%%%%%%%%%%
     /* 
 
+// section 6.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+    let four = IpAddKind::V4; 
+    let six = IpAddKind::V6;
+
+    let home = IpAddr::V4(127, 0, 0, 1);
+    let loopback = IpAddr::V6(String::from("::1"));
+
+    /* enum Option<T> {
+        None, 
+        Some(T), 
+    } */
+
+    let some_number = Some(5); // Option<i32>
+    let some_string = Some("a string"); // Option<&str>
+    let absent_number: Option<i32> = None; 
+
+enum IpAddKind {
+    V4, 
+    V6, 
+}
+
+fn route(ip_kind: IpAddKind) {}
+
+enum IpAddr {
+    V4(u8, u8, u8, u8), 
+    V6(String), 
+}
+
+// example how enum variants can have diff data types
+enum Message {
+    Quit, 
+    Move { x: i32, y: i32 }, 
+    Write(String), 
+    ChangeColor(i32, i32, i32), 
+}
 
 // section 5.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
