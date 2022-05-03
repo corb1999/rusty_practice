@@ -50,6 +50,63 @@ fn binom_model(arg_y: u32, arg_pie: f32, arg_n: u32) {
 // graveyard below %%%%%%%%%%%%%%%%%%%%%%%%%%
     /* 
 
+// section 6.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let config_max = Some(3u8);
+    if let Some(max) = config_max {
+        println!("the max is config to {}", max);
+    }
+
+// section 6.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let x = Coin::Penny;
+    let y = value_in_cents(x);
+    println!("value of x is {}", y);
+
+    value_in_cents(Coin::Quarters(UsState::Alabama));
+
+    fn plus_one(x: Option<i32>) -> Option<i32> {
+        match x {
+            None => None, 
+            Some(i) => Some(i + 1), 
+        }
+    }
+    let five = Some(5); 
+    let six = plus_one(five); 
+    let none = plus_one(None);
+
+enum Coin {
+    Penny, 
+    Nickel, 
+    Dime, 
+    Quarter, 
+    Quarters(UsState), 
+    FiddyCent, 
+}
+
+#[derive(Debug)]
+enum UsState {
+    Alabama, 
+    Alaska, 
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => {
+            println!("Lucky penny found!");
+            1
+        }, 
+        Coin::Nickel => 5, 
+        Coin::Dime => 10, 
+        Coin::Quarter => 25, 
+        Coin::Quarters(state) => {
+            println!("State quarter from {:?}", state); 
+            25
+        }
+        other => 0, // handles all other cases like the discontinued fifty cent piece i added to enum 
+    }
+}
+
 // section 6.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let four = IpAddKind::V4; 
