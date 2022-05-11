@@ -1,6 +1,6 @@
-use std::time::{SystemTime};
+use std::{time::SystemTime};
 use rand::Rng;
-// use std::io;
+// use std::io::{self, Write};
 
 fn main() {
 
