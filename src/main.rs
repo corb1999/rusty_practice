@@ -5,15 +5,15 @@ use rand::Rng;
 fn main() {
 
     // const SESSION_START_DTTIME = SystemTime::now(); 
-    println!("\nWe talking bout practice!\n");
+    println!("\nwe talking bout practice!\n");
     // println!("Session start = {}", SESSION_START_DTTIME);
     match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
         Ok(n) => println!("1970-01-01 00:00:00 UTC was {} seconds ago", n.as_secs()),
-        Err(_) => panic!("Time is broken"),
+        Err(_) => panic!("time is broken"),
     }
 
     let session_random_num = rand::thread_rng().gen_range(100000..1000000);
-    println!("Here is a random number, {}", session_random_num);
+    println!("here is a random number, {}", session_random_num);
 
     const WELCOME: &str = r#"       
     welcome to...
@@ -26,7 +26,7 @@ fn main() {
 
     // scratchwork goes here ...............
 
-
+    
 
 } // end of main function 
 

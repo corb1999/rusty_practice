@@ -4,6 +4,46 @@
 // graveyard below %%%%%%%%%%%%%%%%%%%%%%%%%%
     /* 
 
+// section 8.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let mut scores = HashMap::new();
+    scores.insert(String::from("red"), 10); 
+    scores.insert(String::from("blue"), 20); 
+
+    let team_name = String::from("blue");
+    let team_score = scores.get(&team_name);
+    println!("{:?}", team_score);
+
+    println!("{:?}", scores);
+    scores.insert(String::from("blue"), 25); 
+    println!("{:?}", scores);
+    scores.entry(String::from("yellow")).or_insert(5); 
+    println!("{:?}", scores);
+    scores.entry(String::from("red")).or_insert(15); // red exists so wont insert 
+    println!("{:?}", scores);
+
+
+// section 8.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let mut s1 = String::new();
+    println!("nada = {}", s1);
+    let phrase = "howdy"; 
+    let s1 = phrase.to_string(); 
+    println!("{}", s1);
+    let s1 = "yo".to_string(); 
+    println!("{}", s1);
+
+    let mut s2 = String::from("howdy"); 
+    s2.push_str(" neighbor"); 
+    println!("{}", s2);
+
+    for i in "hello".chars() {
+        println!("{}", i)
+    }; 
+    for i in "hello".bytes() {
+        println!("{}", i)
+    }; 
+
 // section 8.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let mut v: Vec<i32> = Vec::new(); 
