@@ -4,6 +4,42 @@
 // graveyard below %%%%%%%%%%%%%%%%%%%%%%%%%%
     /* 
 
+// section 9.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let ff = File::open("does_not_exist.txt"); 
+    let ff1 = File::open("readme.md"); 
+    // force the compiler to tell us if the above was successful by purposely setting to the wrong type
+    // let ff: u8 = File::open("does_not_exist.txt"); 
+
+    let ff1 = match ff1 {
+        Ok(file) => file, 
+        Err(error) => panic!("Problem with file: {:?}", error)
+    }; 
+    let ff = match ff {
+        Ok(file) => file, 
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("does_not_exist.txt") {
+                Ok(fc) => fc, 
+                Err(e) => panic!("Screwup here {:?}", e)
+            }, 
+            other_error => {
+                panic!("Problemo here {:?}", other_error)
+            }
+        }, 
+    }; 
+
+    // let fff = File::open("wazzup.txt").unwrap(); 
+    let fff = File::open("wazzup.txt").expect("error msg here bro"); 
+
+// section 9.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    std::env::set_var("RUST_BACKTRACE", "1");
+
+    let vv = vec![1, 2, 3]; 
+    vv[99]; 
+
+    panic!("die here");
+
 // section 8.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let mut scores = HashMap::new();

@@ -12,7 +12,7 @@ fn main() {
         Err(_) => panic!("time is broken"),
     }
 
-    let session_random_num = rand::thread_rng().gen_range(100000..1000000);
+    let session_random_num: u32 = rand::thread_rng().gen_range(100000..1000000);
     println!("here is a random number, {}", session_random_num);
 
     const WELCOME: &str = r#"       
@@ -26,7 +26,7 @@ fn main() {
 
     // scratchwork goes here ...............
 
-    
+
 
 } // end of main function 
 
