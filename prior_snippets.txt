@@ -4,6 +4,37 @@
 // graveyard below %%%%%%%%%%%%%%%%%%%%%%%%%%
     /* 
 
+// section 11 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+// lib.rs file code below...
+fn silly_function(a: i32) -> i32 {
+    println!("I am number {}", a); 
+    10
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn passing_test() {
+        let val = silly_function(3); 
+        assert_eq!(10, val); 
+    }
+
+    #[test]
+    fn failing_test() {
+        let val: i32 = silly_function(10);
+        assert_eq!(3, val); 
+    }
+
+    #[test]
+    #[ignore]
+    fn really_difficult_expensive_test() {
+        // really lengthy and costly time test
+    }
+}
+
 // section 10.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let string1 = String::from("abcd");
