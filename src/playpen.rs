@@ -2,5 +2,5 @@
 
 
 pub fn fibonnaci(arg_a: u32) -> u32 {
-    arg_a + 3
+    arg_a + 1
 }
