@@ -1,6 +1,7 @@
 use std::{time::SystemTime};
 use rand::Rng;
 // use std::io::{self, Write};
+use crate::playpen::fibonnaci;
 
 fn main() {
 
@@ -26,7 +27,7 @@ fn main() {
 
     // scratchwork goes here ...............
 
-    
+    //let foob = fibonnaci(3);
 
 } // end of main function 
 
