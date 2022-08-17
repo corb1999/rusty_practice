@@ -22,6 +22,23 @@
            ▒▒  ▒▒                      ▒▒  ▒▒
 
 
+// section 15.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+use crate::List::*;
+
+    let a = 5; 
+    let b = Box::new(5);
+    println!("A is {} and B is {}", a, b);    
+
+    let list1 = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    println!("{:?}", list1);
+
+#[derive(Debug)]
+enum List {
+    Cons(i32, Box<List>), 
+    Nil, 
+}
+
 // section 13.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
