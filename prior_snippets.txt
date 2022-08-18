@@ -21,6 +21,42 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 15.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+use std::ops::Deref;
+
+    let x = 5; 
+    let y = Box::new(x); 
+    assert_eq!(5, x); 
+    assert_eq!(5, *y);
+    // this results in a compile error: assert_eq!(5, y); 
+
+    let z = BoxFromScratch::new(x);
+    assert_eq!(5, *z); 
+
+    let me = BoxFromScratch::new(String::from("Rusty"));
+    hello(&me); 
+
+struct BoxFromScratch<T>(T);
+
+impl<T> BoxFromScratch<T> {
+    fn new(x: T) -> BoxFromScratch<T> {
+        BoxFromScratch(x)
+    }
+}
+
+impl<T> Deref for BoxFromScratch<T> {
+    type Target = T;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+fn hello(name: &str) {
+    println!("Hello {}!", name); 
+}
+
 
 // section 15.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
