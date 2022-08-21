@@ -21,6 +21,30 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 15.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let c = CustomSmartPoint {
+        data: String::from("stuff"), 
+    }; 
+    let d = CustomSmartPoint {
+        data: String::from("other stuff"), 
+    }; 
+    println!("Custom smart pointers are created: {:?}, and {:?}", c, d); 
+    // c.drop(); // will not compile bc no explicit destructor calls
+    drop(c); 
+    println!("-------- End of the main fun -------- "); 
+
+#[derive(Debug)]
+struct CustomSmartPoint {
+    data: String, 
+}
+
+impl Drop for CustomSmartPoint {
+    fn drop(&mut self) {
+        println!("Dropping data with custom smart pointer '{}'", self.data); 
+    }
+}
+
 // section 15.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 use std::ops::Deref;
