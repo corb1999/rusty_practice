@@ -28,7 +28,7 @@ fn main() {
    |_|   \__,_|___/\__|
    
     "#;
-    println!("\n{}\n", WELCOME);
+    println!("\n{}", WELCOME);
 
     /*let foob = fibonnaci(2);
     println!("{}", foob); */

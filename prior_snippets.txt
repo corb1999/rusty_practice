@@ -21,6 +21,46 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 15.4 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+use crate::List::*;
+use crate::Listy::*;
+
+    let a = Cons(5, Box::new(Cons(10, Box::new(crate::List::Nil)))); 
+    let b = Cons(3, Box::new(a)); 
+    //let c = Cons(4, Box::new(a)); //wont compile because trying to borrow moved val
+    print!("B is {:?}. ", &b); 
+
+    let aa = Rc::new(Conn(5, Rc::new(Conn(10, Rc::new(crate::Listy::Nil))))); 
+    let bb = Conn(3, Rc::clone(&aa)); 
+    let cc = Conn(4, Rc::clone(&aa)); 
+    print!("AA is {:?}. ", &aa);
+    print!("BB is {:?}. ", &bb);
+    print!("CC is {:?}. ", &cc);
+
+    let aaa = Rc::new(Conn(5, Rc::new(Conn(10, Rc::new(crate::Listy::Nil))))); 
+    println!("Count after creating aaa = {}", Rc::strong_count(&aaa)); 
+    let bbb = Conn(3, Rc::clone(&aaa)); 
+    println!("Count after creating bbb = {}", Rc::strong_count(&aaa)); 
+    {
+        let ccc = Conn(4, Rc::clone(&aaa)); 
+        println!("Count after creating ccc = {}", Rc::strong_count(&aaa)); 
+    }
+    println!("Count after ccc out of scope = {}", Rc::strong_count(&aaa)); 
+    
+#[derive(Debug)]
+enum List {
+    Cons(i32, Box<List>), 
+    Nil, 
+}
+
+#[derive(Debug)]
+enum Listy {
+    Conn(i32, Rc<Listy>), 
+    Nil, 
+}
+
+
 // section 15.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let c = CustomSmartPoint {
