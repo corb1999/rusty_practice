@@ -21,6 +21,40 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 16.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    std::thread::spawn(|| {
+        for i in 1..25 {
+            println!("yo this is thread number {} from spawned thread", i); 
+            std::thread::sleep(std::time::Duration::from_millis(1));
+        }
+    });
+
+    let handle_example = std::thread::spawn(|| {
+        for i in 30..40 {
+            println!("yo this is thread number {} from spawned thread w/ handle protection", i); 
+            std::thread::sleep(std::time::Duration::from_millis(1));
+        }
+    });
+
+    // handle_example.join().unwrap(); // swap this line with the other to see diff behavior
+
+    for i in 50..55 {
+        println!("yo this is thread number {} from the main thread", i); 
+        std::thread::sleep(std::time::Duration::from_millis(1));
+    }
+
+    handle_example.join().unwrap();
+
+    let vv = vec![1, 2, 3]; 
+
+    let handle_example2 = std::thread::spawn(move || {
+        println!("Example of thread owning a value, a vec {:?}", vv);
+    });
+
+    handle_example2.join().unwrap(); 
+
+
 // section 15.6.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let leaf1 = Rc::new(Node {
