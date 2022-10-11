@@ -21,6 +21,77 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 16.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let (tx, rx) = std::sync::mpsc::channel();
+
+    std::thread::spawn(move || {
+        let val = String::from("howdy");
+        tx.send(val).unwrap();
+        // println!("try to show val here: {}", val); // will not compile
+    });
+
+    let received = rx.recv().unwrap();
+    println!("Message received through channel: {}", received); 
+
+
+    let (tx1, rx1) = std::sync::mpsc::channel();
+
+    std::thread::spawn(move || {
+        let vals = vec![
+            String::from("hi"), 
+            String::from("yo"), 
+            String::from("hello"), 
+            String::from("bye"), 
+        ]; 
+
+        for val in vals {
+            tx1.send(val).unwrap();
+            std::thread::sleep(std::time::Duration::from_secs(1));
+        }
+    }); 
+
+    for received2 in rx1 {
+        println!("I got this msg: {}", received2)
+    }
+
+
+    let (tx3, rx3) = std::sync::mpsc::channel();
+
+    let txx = tx3.clone();
+    std::thread::spawn(move || {
+        let vals = vec![
+            String::from("hi2"), 
+            String::from("yo2"), 
+            String::from("hello2"), 
+            String::from("bye2"), 
+        ]; 
+
+        for val in vals {
+            txx.send(val).unwrap();
+            std::thread::sleep(std::time::Duration::from_secs(1));
+        }
+    });
+
+    std::thread::spawn(move || {
+        let vals = vec![
+            String::from("hi3"), 
+            String::from("yo3"), 
+            String::from("hello3"), 
+            String::from("bye3"), 
+        ]; 
+
+        for val in vals {
+            tx3.send(val).unwrap();
+            std::thread::sleep(std::time::Duration::from_secs(1));
+        }
+    });
+
+    for received in rx3 {
+        println!("Message from channel 3 received: {}", received); 
+    }
+
+
 // section 16.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     std::thread::spawn(|| {
