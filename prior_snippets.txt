@@ -21,6 +21,39 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 16.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let mm = std::sync::Mutex::new(5); 
+    println!("mm = {:?}", mm);
+
+    {
+        let mut numero = mm.lock().unwrap();
+        *numero = 6;
+    }
+    println!("mm = {:?}", mm);
+
+
+    let county = std::sync::Arc::new(std::sync::Mutex::new(0));
+    let mut handler = vec![]; 
+
+    for _ in 0..10 {
+        let county = std::sync::Arc::clone(&county); 
+        let handler_instance = std::thread::spawn(move || {
+            let mut numero2 = county.lock().unwrap();
+
+            *numero2 += 1;
+
+            println!("Interim result = {:?}", numero2);
+        });
+        handler.push(handler_instance);
+    }
+
+    for handler_instance in handler {
+        handler_instance.join().unwrap();
+    }
+
+    println!("Results are: {}", *county.lock().unwrap()); 
+
 // section 16.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let (tx, rx) = std::sync::mpsc::channel();
