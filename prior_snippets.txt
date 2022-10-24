@@ -21,6 +21,161 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 17.3.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let mut post1 = rusty_practice::Post::new(); 
+
+    post1.add_text("Hello my friends and enemies"); 
+    // println!("Blog Post 1 = {:?}", post1.content()); // will throw compiler error
+
+    let post1 = post1.request_review();
+    // println!("Blog Post 1 = {:?}", post1.content()); // will throw compiler error
+
+    let post1 = post1.approve(); 
+    println!("Blog Post 1 = {:?}", post1.content());
+
+// lib.rs file code below...
+
+pub struct Post {
+    content: String, 
+}
+
+impl Post {
+    pub fn new() -> DraftPost {
+        DraftPost { content: String::new(), }
+    }
+
+    pub fn content(&self) -> &str {
+        &self.content
+    }
+}
+
+pub struct DraftPost {
+    content: String, 
+}
+
+impl DraftPost {
+    pub fn add_text(&mut self, text: &str) {
+        self.content.push_str(text); 
+    }
+
+    pub fn request_review(self) -> PendingReviewPost {
+        PendingReviewPost { content: self.content, }
+    }
+}
+
+pub struct PendingReviewPost {
+    content: String, 
+}
+
+impl PendingReviewPost {
+    pub fn approve(self) -> Post {
+        Post { content: self.content, }
+    }
+}
+
+
+// section 17.3.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let mut post1 = rusty_practice::Post::new(); 
+
+    post1.add_text("Hello my friends and enemies"); 
+    let aa = assert_eq!("", post1.content()); 
+    println!("Blog Post 1 = {:?}", aa);
+
+// lib.rs file code below...
+
+pub struct Post {
+    state: Option<Box<dyn State>>, 
+    content: String, 
+}
+
+struct Draft {
+
+}
+
+struct PendingReview {
+
+}
+
+struct Published {
+
+}
+
+impl Post {
+    pub fn new() -> Post {
+        Post {
+            state: Some(Box::new(Draft {})), 
+            content: String::new(), 
+        }
+    }
+
+    pub fn add_text(&mut self, text: &str) {
+        self.content.push_str(text); 
+    }
+
+    pub fn content(&self) -> &str {
+        self.state.as_ref().unwrap().content(self)
+    }
+
+    pub fn request_review(&mut self) {
+        if let Some(s) = self.state.take() {
+            self.state = Some(s.request_review())
+        }
+    }
+
+    pub fn approve(&mut self) {
+        if let Some(s) = self.state.take() {
+            self.state = Some(s.approve())
+        }
+    }
+}
+
+impl State for Draft {
+    fn request_review(self: Box<Self>) -> Box<dyn State> {
+        Box::new(PendingReview {})
+    }
+
+    fn approve(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
+}
+
+impl State for PendingReview {
+    fn request_review(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
+
+    fn approve(self: Box<Self>) -> Box<dyn State> {
+        Box::new(Published {})
+    }
+}
+
+impl State for Published {
+    fn request_review(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
+
+    fn approve(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
+
+    fn content<'a>(&self, post: &'a Post) -> &'a str {
+        &post.content
+    }
+}
+
+trait State {
+    fn request_review(self: Box<Self>) -> Box<dyn State>;     
+
+    fn approve(self: Box<Self>) -> Box<dyn State>; 
+
+    fn content<'a>(&self, post: &'a Post) -> &'a str {
+        ""
+    }
+}
+
+
 // section 16.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let mm = std::sync::Mutex::new(5); 
