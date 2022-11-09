@@ -21,6 +21,47 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 18.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let fave_color: Option<&str> = None;  
+    let is_tues = false; 
+    let age: Result<u8, _> = "34".parse(); 
+
+    if let Some(color) = fave_color {
+        println!("Using {color} as background bc it is your fave"); 
+    } else if is_tues {
+        println!("Tuesday is Green Day");
+    } else if let Ok(age) = age {
+        if age > 30 {
+            println!("Old heads are purple");
+        } else {
+            println!("Young guns run blue"); 
+        }
+    } else {
+        println!("Engage default color blue"); 
+    }
+
+    let mut mini_stack = Vec::new(); 
+    mini_stack.push(1); 
+    mini_stack.push(2); 
+    mini_stack.push(3); 
+    while let Some(top) = mini_stack.pop() {
+        println!("{}", top); 
+    }
+
+    // decompose a tuple
+    let vv = vec!['a', 'b', 'c'];
+    for (index, value) in vv.iter().enumerate() {
+        println!("{} is at index {}", value, index); 
+    }
+
+    let coords = (87, 34); 
+    print_coords(&coords); 
+
+fn print_coords(&(x, y): &(i32, i32)) {
+    println!("Current Location = ({}, {})", x, y); 
+}
+
 // section 17.3.2 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let mut post1 = rusty_practice::Post::new(); 
