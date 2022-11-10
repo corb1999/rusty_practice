@@ -36,13 +36,11 @@ fn main() {
 
     // scratchwork goes here ...............
 
-    
+
 
 } // end of main function 
 
 // scratchwork goes here ...............
-
-
 
 
 
