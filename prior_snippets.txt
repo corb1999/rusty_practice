@@ -21,6 +21,65 @@
        ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
            ▒▒  ▒▒                      ▒▒  ▒▒
 
+// section 19.1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    let mut flubb = 5; 
+    let f1 = &flubb as *const i32; 
+    let f2 = &mut flubb as *mut i32; 
+    unsafe {
+        println!("flubb 1 = {}", *f1); 
+        println!("flubb 2 = {}", *f2); 
+    }
+
+    unsafe fn danger() {
+        1; 
+    }
+    // danger(); cannot call this fn w/out unsafe block per compiled rules
+    unsafe {
+        danger();
+    }
+
+    let mut v = vec![1, 2, 3, 4, 5, 6]; 
+    let r = &mut v[..]; 
+    let (a, b) = r.split_at_mut(3); 
+    assert_eq!(a, &mut [1, 2, 3]); 
+    assert_eq!(b, &mut [4, 5, 6]); 
+    fn splity(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
+        let lenn = values.len(); 
+        let ptr = values.as_mut_ptr(); 
+        assert!(mid <= lenn); 
+        unsafe {
+            (
+                std::slice::from_raw_parts_mut(ptr, mid), 
+                std::slice::from_raw_parts_mut(ptr.add(mid), lenn - mid), 
+            )
+        }
+    }
+
+    extern "C" {
+        fn abs(input: i32) -> i32;
+    }
+    unsafe {
+        println!("ABS value of 3 according to C = {}", abs(-3)); 
+    }
+
+    static ELLO_GOVNA: &str = "Ello, Govna!"; 
+    println!("my name is: {}", ELLO_GOVNA); 
+
+    static mut COUNTER: u32 = 0; 
+    unsafe {
+        println!("COUNTER = {}", COUNTER); 
+    }
+    fn add_to_counter(inc: u32) {
+        unsafe {
+            COUNTER += inc; 
+        }
+    }
+    add_to_counter(3); 
+    unsafe {
+        println!("COUNTER = {}", COUNTER); 
+    }
+
 // section 18.3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     let x = Some(5);
